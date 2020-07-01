@@ -1,6 +1,10 @@
 # howto-tomcat
 Install and management of Tomcat 9  
 
+*[Tomcat9を単独でインストールする場合](#header1)
+*[プレアデスの中のTomcatを使う場合](#header2)
+
+### header1
 # Tomcat9を単独でインストールする場合
 
 ## Tomcatのダウンロード
@@ -59,6 +63,7 @@ example.xml
 <Context path="/example" docBase="C:\Users\user\Documents\example" />
 ```
 ---
+### header2
 # プレアデスの中のTomcatを使う場合
 ## howto-tomcat with preiades
 preiadesのフルセットをインストールしてある場合は、以下のようにする。
