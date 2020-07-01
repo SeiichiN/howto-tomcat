@@ -52,8 +52,8 @@ Tomcatのダウンロード https://tomcat.apache.org/download-90.cgi
 「C:\apache-tomcat-9.0.36\conf」フォルダの中に「Catalina」フォルダを作成し、さらに「localhost」フォルダを作成する。これで中に、ローカルの任意のフォルダをドキュメントルートに設定できる。  
 たとえば、http://localhost:8080/example で、"C:\Users\user\Documents\example"のフォルダの中を見せたいときは、以下の内容でexample.xmlというファイルを作成する。  
 
-
-```example.xml
+example.xml
+```
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:\Users\user\Documents\example" />
 ```
@@ -61,6 +61,42 @@ Tomcatのダウンロード https://tomcat.apache.org/download-90.cgi
 # howto-tomcat with preiades
 preiadesのフルセットをインストールしてある場合は、以下のようにする。
 
-preiadesが「C:\preiades」にインストールされてあるとする。
+preiadesが「C:\preiades」にインストールされてあるとする。  
+Tomcat9は、「C:\pleiades\tomcat\9」にインストールされている。  
+（6~9まで、バージョンごとにフォルダで区別してインストールされている）  
+
+## 環境変数の登録
+「スタート」を右クリック － 「システム」－ 「システム情報」 － 「システムの詳細設定」
+ー 「環境変数」  
+下の「システムの環境変数」に以下を確認あるいて登録する。  
+```
+「JAVA_HOME」... C:\Program Files\Java\jdk1.8.0_251         // Java8の場合  
+「CATALINE_HOME」... C:\pleiades\tomcat\9  
+「CLASSPATH」 ... C:\pleiades\tomcat\9\lib\jsp-api.jar  
+                 C:\pleiades\tomcat\9\lib\servlet-api.jar
+                 C:\pleiades\tomcat\9\lib                  // これは不要
+```
+
+
+## Tomcat9の起動
+「C:\pleiades\tomcat\9\bin」の中に「startup.bat」があるので、
+それのショートカットをデスクトップにつくる。
+startup.batを右クリック － 送る － デスクトップにショートカットを作成
+
+デスクトップのstartup.batをダブルクリックすると、黒い画面がでて、文字化けした画面が
+出る。これで起動できている。  
+http://localhost:8080/ にアクセスすると、Tomcatのホーム画面が表示される。
+
+黒い画面を閉じれば、Tomcatは停止する。
+
+## ローカルの任意のフォルダをドキュメントルートに設定する
+「C:\pleiades\tomcat\9\conf」フォルダの中に「Catalina」フォルダを作成し、さらに「localhost」フォルダを作成する。これで中に、ローカルの任意のフォルダをドキュメントルートに設定できる。  
+たとえば、http://localhost:8080/example で、"C:\Users\user\Documents\example"のフォルダの中を見せたいときは、以下の内容でexample.xmlというファイルを作成する。  
+
+example.xml
+```
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example" docBase="C:\Users\user\Documents\example" />
+```
 
 
