@@ -3,7 +3,7 @@ Install and management of Tomcat 9
 
 * [Tomcat9を単独でインストールする場合](#sec1)
 * [プレアデスの中のTomcatを使う場合](#sec2)
-
+----
 ### sec1
 # Tomcat9を単独でインストールする場合
 
