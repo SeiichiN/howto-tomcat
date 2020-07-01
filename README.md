@@ -51,10 +51,10 @@ Tomcatのダウンロード https://tomcat.apache.org/download-90.cgi
 たとえば、http://localhost:8080/example で、"C:\Users\user\Documents\example"のフォルダの中を見せたいときは、以下の内容でexample.xmlというファイルを作成する。
 
 example.xml
-----------------------------------------------------------------------
+```
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:\Users\user\Documents\example" />
-----------------------------------------------------------------------
+```
 
 # howto-tomcat with preiades
 preiadesのフルセットをインストールしてある場合は、以下のようにする。
