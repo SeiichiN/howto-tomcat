@@ -57,8 +57,7 @@ Tomcatのダウンロード https://tomcat.apache.org/download-90.cgi
 「C:\apache-tomcat-9.0.36\conf」フォルダの中に「Catalina」フォルダを作成し、さらに「localhost」フォルダを作成する。これで中に、ローカルの任意のフォルダをドキュメントルートに設定できる。  
 たとえば、http://localhost:8080/example で、"C:\Users\user\Documents\example"のフォルダの中を見せたいときは、以下の内容でexample.xmlというファイルを作成する。  
 
-example.xml
-```
+```xml:example.xml
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:\Users\user\Documents\example" />
 ```
@@ -100,10 +99,12 @@ http://localhost:8080/ にアクセスすると、Tomcatのホーム画面が表
 「C:\pleiades\tomcat\9\conf」フォルダの中に「Catalina」フォルダを作成し、さらに「localhost」フォルダを作成する。これで中に、ローカルの任意のフォルダをドキュメントルートに設定できる。  
 たとえば、http://localhost:8080/example で、"C:\Users\user\Documents\example"のフォルダの中を見せたいときは、以下の内容でexample.xmlというファイルを作成する。  
 
-example.xml
-```
+
+```xml:example.xml
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:\Users\user\Documents\example" />
 ```
 
 
+
+<!-- 修正時刻： Wed Jul  1 21:23:06 2020 -->
