@@ -34,12 +34,12 @@ Tomcatのダウンロード https://tomcat.apache.org/download-90.cgi
 ## Tomcatのサービスへの登録
 「C:\apache-tomcat-9.0.36\bin」フォルダをコマンドプロンプトで開く。  
 （アドレス欄に cmd と入力して Enter でＯＫ）  
-> service.bat install Tomcat9  
+`> service.bat install Tomcat9`  
 と入力して Enter  
 環境変数の状態を表示されて、サービスが登録されたことが表示される。  
 
 サービスからの削除  
-> service.bat uninstall Tomcat9
+`> service.bat uninstall Tomcat9`
 
 ### サービスの確認
 「スタート」を右クリック － 「コンピュータの管理」 － 「サービスとアプリケーション」の
