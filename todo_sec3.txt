@@ -1,0 +1,130 @@
+サーブレットを作成して、配置する。
+
+作成するサーブレットのパッケージ名は、"servlet"。
+
+参考URLは、
+サーブレットクラスの作成
+https://sukkiri.jp/technologies/ides/eclipse/servlet_create.html?ssj=3
+
+サーブレットの実行
+https://sukkiri.jp/technologies/ides/eclipse/servlet_exec.html?ssj=3
+
+
+1) サーブレットの作成
+
+srcディレクトリに servlet ディレクトリを作成し、そこに SampleServlet.java を
+作成する。
+
+servlet ディレクトリがパッケージ名に相当する。
+
+SampleServlet.java
+<<<
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;                                 // <1>
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;                 // <2>
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/SampleServlet")
+public class SampleServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet( HttpServletRequest request,
+                          HttpServletResponse response )
+        throws ServletException, IOException {
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("---");
+        out.println("</html>");
+    }
+}
+>>>
+
+<1> -- PrintWriter で必要。
+<2> -- @WebServer("/SampleServlet") で必要。
+
+次に src ディレクトリにてコンパイルする。
+
+~/Docs/Lala/10_jsp/example/src$ javac -d ../WEB-INF/classes servlet/*.java
+
+サーブレットはコンパイルするごとに Tomcat を再起動しなければならない。
+
+Tomcat が動作しているコマンドプロンプトの画面を閉じて、Tomcatを再度起動すればよい。
+
+ブラウザでアクセス。
+
+http://localhost:8080/example/SampleServlet
+
+
+2) 運勢占い
+
+SampleServlet.java を以下のように修正する。
+
+SampleServlet.java
+<<<
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/SampleServlet")
+public class SampleServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet( HttpServletRequest request,
+                          HttpServletResponse response )
+        throws ServletException, IOException {
+
+        // 運勢をランダムで決定
+        String [] luckArray = { "超スッキリ", "スッキリ", "最悪" };
+        int index = (int) (Math.random() * 3);
+        String luck = luckArray[index];
+
+        // 実行日を取得
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+        String today = sdf.format(date);
+
+        // HTMLを出力
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>スッキリ占い</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<p>" + today + "の運勢は「" + luck + "」です</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
+>>>
+
+Tomcatサーバを再起動。
+
+
+ブラウザでアクセス。
+ http://localhost:8080/example/SampleServlet
+
+
+
+
+
+
+
+修正時刻： Sun Jun 28 11:44:03 2020

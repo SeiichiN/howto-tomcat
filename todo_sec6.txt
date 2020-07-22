@@ -1,0 +1,106 @@
+スッキリ第6章
+
+example とは別に ex フォルダを作成する。
+
+$CATALINA/conf/Catalina/localhost/ex.xml
+<<<
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/ex" docBase="/home/se-ichi/Docs/Lala/10_jsp/ex" />
+>>>
+
+
+ディレクトリ構成
+<<<
+~/Docs/Lala/10_jsp/ex$ tree ./
+./
+├── WEB-INF
+│   └── classes
+│       └── ex
+│           └── Ex62.class
+├── forward.jsp
+├── redirect.jsp
+└── src
+    └── ex
+        ├── Ex62.java
+        └── Ex62.java~
+>>>
+
+
+forward.jsp
+<<<
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Forward</title>
+  </head>
+  <body>
+    <h1>Forward</h1>
+  </body>
+</html>
+>>>
+
+
+redirect.jsp
+<<<
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Ridirect</title>
+  </head>
+  <body>
+    <h1>Redirect</h1>
+  </body>
+</html>
+>>>
+
+/home/se-ichi/Docs/Lala/10_jsp/ex/src/ex/Ex62.java
+<<<
+package ex;
+
+import java.io.IOException;
+import java.util.Random;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/ex62")
+public class Ex62 extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet (HttpServletRequest request,
+                          HttpServletResponse response)
+        throws ServletException, IOException {
+
+        int keyNum = (int) (Math.random() * 10);
+
+        if (keyNum % 2 == 0) {
+            // フォワード
+            RequestDispatcher dispatcher =
+                request.getRequestDispatcher("/forward.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            // リダイレクト
+            response.sendRedirect("/ex/redirect.jsp");
+        }
+    }
+}
+>>>
+
+~/Docs/Lala/10_jsp/ex/src$ javac -d ../WEB-INF/classes ex/*.java
+
+$ sudo service tomcat restart
+
+http://localhost:8080/ex/ex62
+

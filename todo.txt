@@ -1,0 +1,59 @@
+すっきりの経過
+
+1) フォルダの作成
+
+eclipse ワークディレクトリが C:\pleiades\workspace\sukkiri なので、
+それとは別にする。
+
+C:\Users\user\Documents\sukkiri というフォルダを作成。
+その中に example というプロジェクト（フォルダ）を作成する。
+
+2) Tomcat への登録
+
+C:\pleiades\tomcat\9 の中に Catalina というフォルダを作成し、その中に localhost というフォルダを作成する。
+
+C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とした。
+
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example" docBase="C:/Users/user/Documents/sukkiri/example" />
+
+3) exampleフォルダの内容
+
+exampleフォルダのツリー構造は以下である。
+
+
+./example
+  ├── WEB-INF
+  │   ├── classes
+  │   ├── lib
+  │   └── web.xml
+  ├── doc
+  │   └── todo.txt
+  ├── index.html
+  └── src
+
+4) index.html の作成
+
+こんにちは、HTML!!
+
+と表示するだけの index.html を作成し、上のツリー図のように配置する。
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>すっきり</titie>
+</head>
+<body>
+  <h1>こんにちは、HTML!!</h1>
+</body>
+</html>
+
+
+
+5) ブラウザで確認
+
+Tomcat を再起動後、http://localhost:8080/example/ にアクセスすることでブラウザに表示できる。
+
+
+修正時刻： Sun Jun 28 09:20:52 2020

@@ -1,0 +1,301 @@
+リクエストスコープ
+
+sec7
+./
+├── ex
+│   ├── WEB-INF
+│   │   ├── classes
+│   │   │   └── ex
+│   │   │       ├── Fruit.class
+│   │   │       └── FruitServlet.class
+│   │   └── ex
+│   │       ├── fruit.jsp
+│   │       └── fruit.jsp~
+│   └── src
+│       └── ex
+│           ├── Fruit.java
+│           └── FruitServlet.java
+└── example
+    ├── WEB-INF
+    │   ├── classes
+    │   │   ├── model
+    │   │   │   ├── Health.class
+    │   │   │   └── HealthCheckLogic.class
+    │   │   └── servlet
+    │   │       └─── HealthCheck.class
+    │   └── jsp
+    │       ├── healthCheck.jsp
+    │       └── healthCheckResult.jsp
+    └── src
+        ├── model
+        │   ├── Health.java
+        │   └── HealthCheckLogic.java
+        └── servlet
+            └── HealthCheck.java
+
+
+src/model/Health.java
+<<<
+package model;
+
+import java.io.Serializable;
+
+public class Health implements Serializable {
+    private double height, weight, bmi;
+    private String bodyType;
+
+    public double getHeight() { return this.height; }
+    public void setHeight( double _height ) { this.height = _height; }
+    public double getWeight() { return this.weight; }
+    public void setWeight( double _weight ) { this.weight = _weight; }
+    public void setBmi( double _bmi ) { this.bmi = _bmi; }
+    public double getBmi() { return this.bmi; }
+    public void setBodyType( String _bodyType ) {
+        this.bodyType = _bodyType;
+    }
+    public String getBodyType() { return this.bodyType; }
+}
+>>>
+
+
+src/model/HealthCheckLogic.java
+<<<
+package model;
+
+public class HealthCheckLogic {
+    public void execute( Health health ) {
+        // BMI
+        double weight = health.getWeight();
+        double height = health.getHeight();
+        double bmi = weight / (height / 100.0 * height / 100.0);
+        health.setBmi( bmi );
+
+        // BMI -> BodyType
+        String bodyType;
+        if (bmi < 18.5) {
+            bodyType = "やせ型";
+        } else if (bmi < 25) {
+            bodyType = "普通";
+        } else {
+            bodyType = "肥満";
+        }
+        health.setBodyType( bodyType );
+    }
+}
+>>>
+
+
+
+src/servlet/HealthCheck.java
+<<<
+package servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.Health;
+import model.HealthCheckLogic;
+
+@WebServlet("/HealthCheck")
+public class HealthCheck extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet (HttpServletRequest request,
+                          HttpServletResponse response)
+        throws ServletException, IOException {
+
+        // forward
+        RequestDispatcher dispatcher =
+            request.getRequestDispatcher("/WEB-INF/jsp/healthCheck.jsp");
+        dispatcher.forward( request, response );
+    }
+
+    protected void doPost( HttpServletRequest request,
+                           HttpServletResponse response)
+        throws ServletException, IOException {
+
+        // get parameter
+        String weight = request.getParameter("weight");
+        String height = request.getParameter("height");
+
+        // set property
+        Health health = new Health();
+        health.setHeight( Double.parseDouble( height ));
+        health.setWeight( Double.parseDouble( weight ));
+
+        // run HealthCheck
+        HealthCheckLogic healthCheckLogic = new HealthCheckLogic();
+        healthCheckLogic.execute( health );
+
+        // save to RequestScope
+        request.setAttribute( "health", health );
+
+        // forward
+        RequestDispatcher dispatcher =
+            request.getRequestDispatcher("/WEB-INF/jsp/healthCheckResult.jsp");
+        dispatcher.forward( request, response );
+    }
+}
+>>>
+
+/WEB-INF/jsp/healthCheck.jsp
+<<<
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8" %>
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sukkiri Health Check</title>
+  </head>
+  <body>
+    <h1>Sukkiri Health Check</h1>
+    <form action="/example/HealthCheck" method="post">
+      Height:<input type="text" name="height"/>(cm)<br/>
+      Weight:<input type="text" name="weight"/>(kg)<br/>
+      <input type="submit" value="CHECK!"/>
+    </form>
+  </body>
+</html>
+>>>
+
+
+/WEB-INF/jsp/healthCheckResult.jsp
+<<<
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8" %>
+<%@ page import="model.Health" %>
+
+<%
+// get Health Instance from Request Scope
+Health health = (Health) request.getAttribute("health");
+%>
+<!-- Health Check Result -->
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Sukkiri Health Check</title>
+  </head>
+  <body>
+    <h1>Result of Sukkiri Health Check</h1>
+    <p>
+      Height: <%= health.getHeight() %><br/>
+      Weight: <%= health.getWeight() %><br/>
+      B M I: <%= health.getBmi() %><br/>
+      BodyType: <%= health.getBodyType() %><br/>
+    </p>
+    <a href="/example/HealthCheck">BACK</a>
+  </body>
+</html>
+>>>
+
+=======================================================================
+
+静的メソッドを使う方法
+
+HealthCheckLogic.java を以下のように変更する。
+
+/src/model/HealthCheckLogic.java
+<<<
+package model;
+
+public class HealthCheckLogic {
+    public static void execute( Health health ) {      // <== <1>
+        // BMI
+        double weight = health.getWeight();
+        double height = health.getHeight();
+        double bmi = weight / (height / 100.0 * height / 100.0);
+        health.setBmi( bmi );
+
+        // BMI -> BodyType
+        String bodyType;
+        if (bmi < 18.5) {
+            bodyType = "やせ型";
+        } else if (bmi < 25) {
+            bodyType = "普通";
+        } else {
+            bodyType = "肥満";
+        }
+        health.setBodyType( bodyType );
+    }
+}
+>>>
+
+<1> -- static メソッドに変更する。
+
+以下のように、HealthCheckLogic.java をインスタンス化しているところを
+変更する。
+
+src/servlet/HealthCheck.java
+<<<
+package servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.Health;
+import model.HealthCheckLogic;
+
+@WebServlet("/HealthCheck")
+public class HealthCheck extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet (HttpServletRequest request,
+                          HttpServletResponse response)
+        throws ServletException, IOException {
+
+        // forward
+        RequestDispatcher dispatcher =
+            request.getRequestDispatcher("/WEB-INF/jsp/healthCheck.jsp");
+        dispatcher.forward( request, response );
+    }
+
+    protected void doPost( HttpServletRequest request,
+                           HttpServletResponse response)
+        throws ServletException, IOException {
+
+        // get parameter
+        String weight = request.getParameter("weight");
+        String height = request.getParameter("height");
+
+        // set property
+        Health health = new Health();
+        health.setHeight( Double.parseDouble( height ));
+        health.setWeight( Double.parseDouble( weight ));
+
+        // run HealthCheck
+        // HealthCheckLogic healthCheckLogic = new HealthCheckLogic();
+        HealthCheckLogic.execute( health );             <== <1>
+
+        // save to RequestScope
+        request.setAttribute( "health", health );
+
+        // forward
+        RequestDispatcher dispatcher =
+            request.getRequestDispatcher("/WEB-INF/jsp/healthCheckResult.jsp");
+        dispatcher.forward( request, response );
+    }
+}
+
+<1> -- このように、HealthCheckLogic の execute メソッドを呼び出す。
+
+このようにもできるが、果たしてどちらがふさわしいのだろうか？
+
+ここでは身長と体重のデータを受け取って、BMI指数と肥満度を割り出しているだけなので、
+staticメソッドとするほうがいいと思う。
+
+修正時刻： Tue Jun 30 11:23:50 2020

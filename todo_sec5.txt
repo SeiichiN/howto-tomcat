@@ -1,0 +1,127 @@
+スッキリ第5章 フォーム
+
+formSampla.jsp
+<<<
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>ユーザー登録もどき</title>
+  </head>
+  <body>
+    <form action="/example/FormSampleServlet" method="post">
+      名前:<br/>
+      <input type="text" name="name"/><br/>
+      性別:<br/>
+      <input type="radio" name="gender" value="0"/>男&nbsp;
+      <input type="radio" name="gender" value="1"/>女<br/>
+      お問い合わせの種類:<br/>
+      <select name="qtype">
+        <option value="company">会社について</option>
+        <option value="product">製品について</option>
+        <option value="support">アフターサポートについて</option>
+      </select><br/>
+      お問い合わせ内容:<br/>
+      <textarea name="body"></textarea><br/>
+      <input type="submit" value="登録"/>
+    </form>
+  </body>
+</html>
+>>>
+
+FormSampleServlet.java
+<<<
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/FormSampleServlet")
+public class FormSampleServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doPost (HttpServletRequest request,
+                           HttpServletResponse response)
+        throws ServletException, IOException {
+
+        // リクエストパラメータを取得
+        request.setCharacterEncoding("UTF-8");
+        String name = request.getParameter("name");
+        String gender = request.getParameter("gender");
+        String qtype = request.getParameter("qtype");
+        String body = request.getParameter("body");
+
+        // リクエストパラメータをチェック
+        String errorMsg = "";
+        if (name == null || name.length() == 0) {
+            errorMsg += "名前が入力されていません<br>";
+        }
+        if (gender == null || gender.length() == 0) {
+            errorMsg += "性別が選択されていません<br>";
+        } else {
+            if (gender.equals("0")) { gender = "男性"; }
+            else if (gender.equals("1")) { gender = "女性"; }
+        }
+        if (qtype == null || qtype.length() == 0) {
+            errorMsg += "お問い合わせの種類が入力されていません<br>";
+        } else {
+            switch( qtype ) {
+            case "company":
+                qtype = "会社について";
+                break;
+            case "product":
+                qtype = "製品について";
+                break;
+            case "support":
+                qtype = "アフターサポートについて";
+                break;
+            default:
+                qtype = "あり得ない選択";
+            }
+        }
+        if ( body == null || body.length() == 0) {
+            // body = "お問い合わせ内容が未入力です"；
+            body = "Otoiawase mi nyuuryoku";
+        }
+
+        // 表示するメッセージを設定
+        String msg = name + "さん(" + gender + ")を登録しました";
+
+        if (errorMsg.length() != 0) {
+            msg = errorMsg;
+        }
+
+        // HTMLを出力
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<!doctype html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset=\"utf-8\">");
+        out.println("<title>ユーザー登録結果</title>");
+        out.println("<head>");
+        out.println("<body>");
+        out.println("<p>" + msg + "</p>");
+        out.println("<h2>お問い合わせの種類</h2>");
+        out.println("<p>" + qtype + "</p>");
+        out.println("<h2>お問い合わせ内容</h2>");
+        out.println("<p>" + body + "</p>");
+        out.println("<p><a href=\"/example/formSample.jsp\">もどる</a></p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
+>>>
+
+
+
+
+修正時刻： Sun Jun 28 22:32:59 2020
