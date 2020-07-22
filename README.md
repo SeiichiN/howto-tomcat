@@ -78,11 +78,10 @@ Tomcat9は、「C:\pleiades\tomcat\9」にインストールされている。
 ー 「環境変数」  
 下の「システムの環境変数」に以下を確認あるいて登録する。  
 ```
-「JAVA_HOME」... C:\Program Files\Java\jdk1.8.0_251         // Java8の場合  
+「JAVA_HOME」... C:\pleiades\Java\11           // pleiadesの中のJava11を使う  
 「CATALINE_HOME」... C:\pleiades\tomcat\9  
 「CLASSPATH」 ... C:\pleiades\tomcat\9\lib\jsp-api.jar  
                  C:\pleiades\tomcat\9\lib\servlet-api.jar
-                 C:\pleiades\tomcat\9\lib                  // これは不要
 ```
 
 
