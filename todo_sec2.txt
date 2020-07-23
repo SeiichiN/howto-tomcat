@@ -1,0 +1,131 @@
+HTTP通信のしくみ
+
+スタートを右クリック ー アプリと機能 ー プログラムと機能 ー Windowsの機能の有効化または無効化 ー
+
+Windowsの機能のダイアログボックスで
+Telnet Client にチェックを入れて OK
+
+ファイルのインストールが始まり、Windowsを再起動する。
+
+MAMPなどで、Apacheを起動しておく。
+
+メモ帳などを起動して、以下の文字を入力してコピーしておく。
+
+GET / HTTP/1.1
+Host: localhost
+
+
+コマンドプロンプトを起動する。
+
+> telnet localhost 80 <リターン>
+
+何も表示されなくなる。
+
+「Ctrl - ]」とする。
+
+Microsoft Telnet クライアントへようこそ
+エスケープ文字は 'CTRL+]' です
+Microsoft Telnet> 
+
+と表示される。
+
+Microsoft telnet> set localecho <リターン>
+
+とする。
+
+ローカル エコー: オン
+Microsoft Telnet>
+
+と表示されるので、
+
+<リターン>
+
+とする。また、何も表示されなくなる。
+
+左上の黒いアイコンを左クリック ー 編集 ー 貼り付け
+
+GET / HTTP/1.1
+Host: loalhost
+(空行) <リターン>
+
+とすると、
+
+HTTP/1.1 200 OK
+Date: Thu, 23 Jul 2020 11:15:45 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+Content-Length: 147
+
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Sample</title>
+</head>
+<body>
+<h1>Sample Page</h1>
+</body>
+</html>
+
+というような文字列が表示される。
+
+空行で区切られていて、前段が「ヘッダ部」、後段が「ボディ部」である。
+
+
+すっきりの経過
+
+1) フォルダの作成
+
+eclipse ワークディレクトリが C:\pleiades\workspace\sukkiri なので、
+それとは別にする。
+
+C:\Users\user\Documents\sukkiri というフォルダを作成。
+その中に example というプロジェクト（フォルダ）を作成する。
+
+2) Tomcat への登録
+
+C:\pleiades\tomcat\9 の中に Catalina というフォルダを作成し、その中に localhost というフォルダを作成する。
+
+C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とする。
+
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example" docBase="C:/Users/user/Documents/sukkiri/example" />
+
+3) exampleフォルダの内容
+
+exampleフォルダのツリー構造は以下である。
+
+
+./example
+  ├── WEB-INF
+  │   ├── classes
+  │   ├── lib
+  │   └── web.xml
+  ├── doc
+  │   └── todo.txt
+  ├── index.html
+  └── src
+
+4) index.html の作成
+
+こんにちは、HTML!!
+
+と表示するだけの index.html を作成し、上のツリー図のように配置する。
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>すっきり</titie>
+</head>
+<body>
+  <h1>こんにちは、HTML!!</h1>
+</body>
+</html>
+
+
+
+5) ブラウザで確認
+
+Tomcat を再起動後、http://localhost:8080/example/ にアクセスすることでブラウザに表示できる。
+

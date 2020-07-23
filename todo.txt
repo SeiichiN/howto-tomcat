@@ -12,7 +12,7 @@ C:\Users\user\Documents\sukkiri というフォルダを作成。
 
 C:\pleiades\tomcat\9 の中に Catalina というフォルダを作成し、その中に localhost というフォルダを作成する。
 
-C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とした。
+C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とする。
 
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:/Users/user/Documents/sukkiri/example" />

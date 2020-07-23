@@ -1,0 +1,72 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{準備作業}
+
+\subsection{pleiadesのインストール}
+
+pleiades の all-in-one をインストールする。
+
+(Pleiades All in One ダウンロード){https://mergedoc.osdn.jp/}
+
+pleiadesは「C:\\pleiades」にインストールしたとする。
+
+\subsection{環境変数の登録}
+
+「スタート」を右クリック － 「システム」－ 「システム情報」 － 「システムの詳細設定」
+ー 「環境変数」
+
+下の「システムの環境変数」に以下を確認あるいは登録する。
+
+\begin{tcolorbox}
+「JAVA\_HOME」... C:\\pleiades\\Java\\11 
+「CATALINE\_HOME」... C:\\pleiades\\tomcat\\9  
+「CLASSPATH」 ... C:\\pleiades\\tomcat\\9\\lib\\jsp-api.jar  
+                 C:\\pleiades\\tomcat\\9\\lib\\servlet-api.jar
+\end{tcolorbox}
+
+Java は 11 を使う。\\
+Tomcat は 9 を使う。
+
+\subsection{Tomcatの起動}
+
+「C:\\pleiades\\tomcat\\9\\bin」の中に「startup.bat」があるので、
+それのショートカットをデスクトップにつくる。\\
+(startup.batを右クリック － 送る － デスクトップにショートカットを作成)
+
+デスクトップに作成した startup.batのショートカットをダブルクリックすると、
+黒い画面が現れて、文字化けした文字列がだらだらと表示される。
+これで Tomcat は起動できている。
+
+Ctrl-C を押すか、黒い画面を閉じれば Tomcat を停止できる。
+
+\subsection{Webページを配置する}
+
+「C:\\pleiades\\tomcat\\9\\webapp」フォルダに、たとえば「hello」フォルダを作成する。
+
+その中に以下のように index.html を配置する。
+
+\begin{lstlisting}
+ <!doctype html>
+ <html lang=''ja''>
+ <head>
+ <meta charset=''utf-8''>
+ <title>HELLO</title>
+ </head>
+ <body>
+ <h1>Hello</h1>
+ </body>
+ </html>
+\end{lstlisting}
+
+ブラウザを起動して、\fbox{http://localhost:8080/hello/}にアクセスすると、
+index.htmlが表示される。
+
+公開したい Webページをフォルダごと配置すれば、公開できる。
+
+また、webapp フォルダ以外のフォルダを指定することもできる。
+
+\include{end}
+
+%% 修正時刻： Sat May  2 16:26:44 2020

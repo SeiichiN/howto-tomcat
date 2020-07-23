@@ -1,0 +1,152 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{Webのしくみ}
+
+\subsection{HTTP通信のしくみ}
+
+スタートを右クリック ー アプリと機能 ー プログラムと機能 ー Windowsの機能の有効化または無効化 ー
+
+Windowsの機能のダイアログボックスで
+Telnet Client にチェックを入れて OK
+
+ファイルのインストールが始まり、Windowsを再起動する。
+
+MAMPなどで、Apacheを起動しておく。
+
+あるいは、任意のフォルダで、「php -S localhost:80」とすると、そのポートで簡易Webサーバが起動する。
+
+メモ帳などを起動して、以下の文字を入力してコピーしておく。
+
+\begin{tcolorbox}
+GET / HTTP/1.1
+Host: localhost
+\end{tcolorbox}
+
+コマンドプロンプトを起動する。
+
+\verb!> telnet localhost 80 <リターン>!
+
+何も表示されなくなる。
+
+「\verv!Ctrl - ]!」とする。
+
+\begin{tcolorbox}
+Microsoft Telnet クライアントへようこそ
+エスケープ文字は 'CTRL+]' です
+Microsoft Telnet> 
+\end{tcolorbox}
+
+と表示される。
+
+\fbox{Microsoft telnet> set localecho <リターン>}
+
+とする。
+
+\begin{tcolorbox}
+ローカル エコー: オン
+Microsoft Telnet>
+\end{tcolorbox}
+
+と表示されるので、
+
+\fbox{<リターン>}
+
+とする。また、何も表示されなくなる。
+
+左上の黒いアイコンを左クリック ー 編集 ー 貼り付け
+
+\begin{tcolorbox}
+GET / HTTP/1.1
+Host: loalhost
+(空行) <リターン>
+\end{tcolorbox}
+
+とすると、
+
+\begin{tcolorbox}
+HTTP/1.1 200 OK
+Date: Thu, 23 Jul 2020 11:15:45 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+Content-Length: 147
+
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Sample</title>
+</head>
+<body>
+<h1>Sample Page</h1>
+</body>
+</html>
+\end{tcolorbox}
+
+というような文字列が表示される。
+
+空行で区切られていて、前段が「ヘッダ部」、後段が「ボディ部」である。
+
+
+\subsection{開発環境を準備する}
+
+\subsubsection{フォルダの作成}
+
+eclipse ワークディレクトリが C:\pleiades\workspace\sukkiri なので、
+それとは別にする。
+
+C:\Users\user\Documents\sukkiri というフォルダを作成。
+その中に example というプロジェクト（フォルダ）を作成する。
+
+\subsubsection{Tomcat への登録}
+
+C:\pleiades\tomcat\9 の中に Catalina というフォルダを作成し、その中に localhost というフォルダを作成する。
+
+C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とする。
+
+\begin{tcolorbox}
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example" docBase="C:/Users/user/Documents/sukkiri/example" />
+\end{tcolorbox}
+
+\subsection{開発環境を体験する}
+
+\subsubsection{exampleフォルダの内容}
+
+exampleフォルダのツリー構造は以下である。
+
+
+./example
+  ├── WEB-INF
+  │   ├── classes
+  │   └── lib
+  ├── src
+  └── index.html
+
+\subsubsection{index.html の作成}
+
+こんにちは、HTML!!
+
+と表示するだけの index.html を作成し、上のツリー図のように配置する。
+
+\begin{lstlisting}
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>すっきり</titie>
+</head>
+<body>
+  <h1>こんにちは、HTML!!</h1>
+</body>
+</html>
+\end{lstlisting}
+
+
+
+5) ブラウザで確認
+
+Tomcat を再起動後、http://localhost:8080/example/ にアクセスすることでブラウザに表示できる。
+
+\include{end}
