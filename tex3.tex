@@ -1,0 +1,213 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{サーブレットの基礎と作成方法}
+
+作成するサーブレットのプロジェクト名は、\textbf{example}。
+
+\vspace{3mm}
+参考URL
+\vspace{-3mm}
+\begin{itemize}
+ \item \href{サーブレットクラスの作成}{https://sukkiri.jp/technologies/ides/eclipse/servlet\_create.html?ssj=3}
+ \item \href{サーブレットの実行}{https://sukkiri.jp/technologies/ides/eclipse/servlet\_exec.html?ssj=3}
+\end{itemize}
+
+ドキュメントフォルダに \textbf{sukkiri} フォルダがあるはずだから、
+その中に \textbf{example} フォルダを作成する。
+
+今回は、前回で作成した exampleフォルダがすでにあるので、それを使うことにする。
+
+フォルダの構造は以下のとおり。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+  ├── WEB-INF
+  │   ├── classes
+  │   └── lib
+  ├── src
+  └── index.html
+\end{verbatim}
+\end{tcolorbox}
+
+「スッキリ」本には index.html は無いが、あると便利なので作っておく。
+内容は、以下とする。前回作成したものを少し修正する。
+
+\begin{lstlisting}
+ <!doctype html>
+ <html lang=''ja''>
+ <head>
+ <meta charset=''utf-8''>
+ <title>SERVLET</title>
+ </head>
+ <body>
+ <h1>sukkiri-chap3</h1>
+ <p><a href=''#''>SampleServlet</a></p>
+ </body>
+ </html>
+\end{lstlisting}
+
+
+\subsection{サーブレットの作成}
+
+\textbf{src}フォルダに \textbf{servlet} フォルダを作成し、
+そこに \textbf{SampleServlet.java} を作成する。
+
+\textbf{servlet} フォルダがパッケージ名に相当する。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── lib
+├── index.html
+└── src
+    └── servlet
+        └── SampleServlet.java
+\end{verbatim}
+\end{tcolorbox}
+
+「本」のp83からp92までの内容を実際にやってみる。
+
+以下の内容を好みのエディタで入力する。
+
+\begin{lstlisting}[caption=SampleServlet.java]
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;                                 // <1>
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;                 // <2>
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/SampleServlet")
+public class SampleServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet( HttpServletRequest request,
+                          HttpServletResponse response )
+        throws ServletException, IOException {
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("---");
+        out.println("</html>");
+    }
+}
+\end{lstlisting}
+
+\begin{verbatim}
+    <1> -- PrintWriter で必要。
+    <2> -- @WebServer("/SampleServlet")で必要。
+\end{verbatim}
+
+次に、コンパイルを行う。srcフォルダにいるとする。
+
+\fbox{\textgreater  javac  -d  ../WEB-INF/classes  servlet/*.java}
+
+\verb!-d! オプションは コンパイルしたあとにできる classファイルをどこに置くかという指定である。
+Tomcatの場合、WEB-INF/classes に置くことに決まっている。
+
+コンパイルするソースファイルは servlet/*.java と指定している。servletフォルダの中のすべての
+javaファイルという意味である。
+
+コンパイルしようとすると エンコードに関するエラーがずらずらと表示されるかもしれない。
+UTF-8の文字コードで作成したファイルを Windowsのコマンドプロンプトではそのままでは
+コンパイルできない。\\
+以下のように \verb!-encoding UTF-8! とオプションをつけてコンパイルする。
+
+\fbox{\textgreater  javac  -encoding  UTF-8  -d  ../WEB-INF/classes  servlet/*.java}
+
+
+サーブレットはコンパイルするごとに Tomcat を再起動しなければならない。
+Tomcat が動作しているコマンドプロンプトの画面を閉じるか、Ctrl + C として画面を閉じて、
+再度 Tomcat を起動するショートカットをダブルクリックして Tomcat を起動する。
+
+そして、ブラウザでアクセス。
+
+URLは、\verb!http://localhost:8080/example/SampleServlet! である。
+
+index.html を開いて、以下の箇所にURL文字列を入れる。
+
+\begin{tcolorbox}
+\verb! <p><a href=''/example/SampleServlet''>SampleServlet</a></p> !
+\end{tcolorbox}
+
+ブラウザに \verb! http://localhost:8080/example/ ! とすると、index.html が表示されるので、
+リンク先をクリックしてうまく表示されると成功である。
+
+もっとも、「---」と表示されるだけであるが。
+
+
+\subsection{サーブレットクラスを作成して実行する}
+
+p93からの内容は、以下である。
+
+SampleServlet.java を以下のように修正する。
+
+\begin{lstlisting}[caption=SampleServlet.java]
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/SampleServlet")
+public class SampleServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet( HttpServletRequest request,
+                          HttpServletResponse response )
+        throws ServletException, IOException {
+
+        // 運勢をランダムで決定
+        String [] luckArray = { "超スッキリ", "スッキリ", "最悪" };
+        int index = (int) (Math.random() * 3);
+        String luck = luckArray[index];
+
+        // 実行日を取得
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+        String today = sdf.format(date);
+
+        // HTMLを出力
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>スッキリ占い</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<p>" + today + "の運勢は「" + luck + "」です</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
+\end{lstlisting}
+
+Tomcatサーバーを再起動する。
+
+ブラウザでアクセスする。
+
+\verb!http://localhost:8080/example/SampleServlet!
+
+
+
+
+\include{end}
+
+%% 修正時刻： Fri Jul 24 13:21:18 2020

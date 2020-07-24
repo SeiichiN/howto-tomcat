@@ -2,15 +2,36 @@
 
 \include{begin}
 
-\section{準備作業}
+Eclipse を学ぶためには、まずコマンドラインでTomcatでのアプリ開発に慣れることが必要だと
+思う。コマンドラインで作業できれば、Eclipseが何をやってくれているのかがわかるようになる。
+僕がJavaを学び始めたころ、「すっきりわかる」シリーズはわかりやすくてよかったのだけれど、
+この「サーブレット\&JSP入門」はわかりにくかった。本に書かれているとおり入力すると
+Eclipse内でTomcatサーバーを起動させてブラウザから確認できるのだけれど、Eclipseが何を
+やっているのかが見えないから、Tomcatサーバーに対して自分が何をやっているのかが
+わからない。だから、本を読んでプログラムを動かせても、自分の力がついた感覚がまるで
+無かった。
+
+で、試しにコマンドラインで作業をやってみたところ、Eclipseでやっていることが何となく
+わかったように思えた。ネットで調べたりしてやってみたんだけれど、Tomcatについての
+理解を深めることができたと思う。
+
+このことは実は Dreamweaver の経験からきている。Web制作の初心者がいきなり Dreamweaver
+を使ってWebサイトを作っても、めちゃくちゃなサイトができるだけである。何しろ HTMLCSS
+の理解なしにやってしまうからである。また、Dreamwerverがやっていることも把握ができない。
+Dreamweaverには超便利な機能がいっぱいついているんだけれど、そのありがたみも、
+Dreamweaverなしでやることができるからわかる。逆に言うと、自分のHTMLCSSの理解の範囲で
+しかDreamweaverを動かすことができないのである。そして、このことは Eclipse についても
+言えると思っている。
+
+ \section{準備作業}
 
 \subsection{pleiadesのインストール}
 
 pleiades の all-in-one をインストールする。
 
-(Pleiades All in One ダウンロード){https://mergedoc.osdn.jp/}
+\href{https://mergedoc.osdn.jp/}{Pleiades All in One ダウンロード}
 
-pleiadesは「C:\\pleiades」にインストールしたとする。
+pleiadesは「\verb!C:\pleiades!」にインストールしたとする。
 
 \subsection{環境変数の登録}
 
@@ -20,18 +41,19 @@ pleiadesは「C:\\pleiades」にインストールしたとする。
 下の「システムの環境変数」に以下を確認あるいは登録する。
 
 \begin{tcolorbox}
-「JAVA\_HOME」... C:\\pleiades\\Java\\11 
-「CATALINE\_HOME」... C:\\pleiades\\tomcat\\9  
-「CLASSPATH」 ... C:\\pleiades\\tomcat\\9\\lib\\jsp-api.jar  
-                 C:\\pleiades\\tomcat\\9\\lib\\servlet-api.jar
+JAVA\_HOME... \verb!C:\pleiades\Java\11! \\
+CATALINE\_HOME... \verb!C:\pleiades\tomcat\9! \\
+CLASSPATH ... \verb!%CATALINA_HOME%\lib\jsp-api.jar!  \\
+\hspace{25mm}  \verb!%CATALINA_HOME%\lib\servlet-api.jar! 
 \end{tcolorbox}
 
-Java は 11 を使う。\\
+Java は 11 を使う。
+
 Tomcat は 9 を使う。
 
 \subsection{Tomcatの起動}
 
-「C:\\pleiades\\tomcat\\9\\bin」の中に「startup.bat」があるので、
+「\verb!C:\pleiades\tomcat\9\bin!」の中に「startup.bat」があるので、
 それのショートカットをデスクトップにつくる。\\
 (startup.batを右クリック － 送る － デスクトップにショートカットを作成)
 
@@ -43,7 +65,7 @@ Ctrl-C を押すか、黒い画面を閉じれば Tomcat を停止できる。
 
 \subsection{Webページを配置する}
 
-「C:\\pleiades\\tomcat\\9\\webapp」フォルダに、たとえば「hello」フォルダを作成する。
+「\verb!C:\pleiades\tomcat\9\webapp!」フォルダに、たとえば「hello」フォルダを作成する。
 
 その中に以下のように index.html を配置する。
 
@@ -51,11 +73,11 @@ Ctrl-C を押すか、黒い画面を閉じれば Tomcat を停止できる。
  <!doctype html>
  <html lang=''ja''>
  <head>
- <meta charset=''utf-8''>
- <title>HELLO</title>
+   <meta charset=''utf-8''>
+   <title>HELLO</title>
  </head>
  <body>
- <h1>Hello</h1>
+   <h1>Hello</h1>
  </body>
  </html>
 \end{lstlisting}
@@ -69,4 +91,4 @@ index.htmlが表示される。
 
 \include{end}
 
-%% 修正時刻： Sat May  2 16:26:44 2020
+%% 修正時刻： Fri Jul 24 10:03:10 2020

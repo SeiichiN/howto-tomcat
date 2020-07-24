@@ -1,0 +1,137 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{Antの利用}
+
+前回は Servlet の作成と実行をおこなった。
+そして、コンパイルをおこなったが、コンパイルオプションがたくさんあって、
+コンパイルする度に入力するのが面倒である。
+
+そこで、ビルド自動化ツールである ''Ant'' を利用する。
+
+\subsection{Antのインストール}
+
+Antは以下のWebページから入手できる。
+
+\href{THE APACHE ANT PROJECT}{https://ant.apache.org/index.html}
+
+表示されたページの左のメニューから \textbf{Download - Binary Distributions} を
+選択する。
+
+表示されたページの下のほうに、以下のバージョンが掲載されている。
+
+\begin{tcolorbox}
+\textbf{1.9.15 release - requires minimum of Java 5 at runtime} \\
+\textbf{1.10.8 release - requires minimum of Java 8 at runtime}
+\end{tcolorbox}
+
+今回使用している Java のバージョンは \textbf{11} なので、\textbf{1.10.8} のほうを
+選択する。
+
+その下に4種類の圧縮形式が並べられてある。
+
+zipファイルである \textbf{apache-ant-1.10.8-bin.zip} をクリックする。
+するとダウンロードが始まる。
+
+ダウンロードフォルダに保存されるので、エクスプローラからダウンロードフォルダを表示し、
+\textbf{apache-ant-1.10.8-bin.zip} を右クリックして、メニューの中から、\textbf{7-zip} を選択し、
+その横に表示されたメニューから ''ここに展開'' を選択する。
+
+ダウンロードフォルダに \textbf{apache-ant-1.10.8} フォルダができるので、そのフォルダを
+\verb!C:\! のトップに持っていくことにする。
+
+スタート(右クリック) ー システム ー システム情報 ー システムの詳細設定 ー 環境変数
+ ー システム環境変数に以下を追加する。
+
+\begin{tcolorbox}
+ \textbf{ANT\_HOME} -- \verb!C:\apache-ant-1.10.8! \\
+ \textbf{Path} -- \verb!%ANT_HOME%\bin\!
+\end{tcolorbox}
+
+
+\subsection{ビルド設定ファイル}
+
+現在 example フォルダで作業しているので、エクスプローラでそのフォルダを表示する。
+そのフォルダの中のトップに \textbf{build.xml} というファイルを作成する。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── lib
+├── index.html
+├── build.xml
+└── src
+    └── servlet
+        └── SampleServlet.java
+\end{verbatim}
+\end{tcolorbox}
+
+以下の内容にする。
+
+\begin{lstlisting}[caption=build.xml]
+ <?xml version="1.0" ?>
+<project name="example" default="compile" basedir=".">
+  <target name="compile">
+    <javac encoding="UTF-8"
+           srcdir="./src"
+           destdir="./WEB-INF/classes" />
+  </target>
+</project>
+\end{lstlisting}
+
+warning: 'includeantruntime' was not set, .... という Warning が出力されるが、\textbf{BUILD SUCCESSFULL} というメッセージが出るはずである。
+
+この warning の出力がわずらわしいので、出ないようにする。
+
+build.xml の内容に以下のように追加する。
+
+\begin{lstlisting}[caption=build.xml]
+ <?xml version="1.0" ?>
+<project name="example" default="compile" basedir=".">
+  <target name="compile">
+    <javac encoding="UTF-8"
+           includeAntRuntime="false"
+           srcdir="./src"
+           destdir="./WEB-INF/classes" />
+  </target>
+</project>
+\end{lstlisting}
+
+こうすると、warning は出力されない。
+
+includeAntRuntimeオプションは、Antのライブラリを含めるかというスイッチなので、これを
+falseにしてもかまわないのだが、ただ、システム環境変数の classpath も参照しなくなる
+ので、サーブレットをコンパイルするのに必要な jarファイルも参照しなくなる。
+そのための設定を追加する。
+
+\begin{lstlisting}[caption=build.xml]
+ <?xml version="1.0" ?>
+<project name="example" default="compile" basedir=".">
+  <target name="compile">
+    <javac encoding="UTF-8"
+           includeAntRuntime="false"
+           srcdir="./src"
+           destdir="./WEB-INF/classes"
+           classpath="C:/pleiades/tomcat/9/lib/servlet-api.jar;
+                      C:/pleiades/tomcat/9/lib/jsp-api.jar"
+           />
+  </target>
+</project>
+\end{lstlisting}
+
+こののち、exampeフォルダのトップにて、
+
+\fbox{ \textgreater ant }
+
+とするだけでコンパイルがおこなわれる。
+
+必要なのは、プロジェクトに合わせて \textbf{project name=} のところを書き直すだけである。
+
+
+
+\include{end}
+
+%% 修正時刻： Fri Jul 23 15:07:11 2020

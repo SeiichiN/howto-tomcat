@@ -9,9 +9,9 @@
 スタートを右クリック ー アプリと機能 ー プログラムと機能 ー Windowsの機能の有効化または無効化 ー
 
 Windowsの機能のダイアログボックスで
-Telnet Client にチェックを入れて OK
+\textbf{Telnet Client} にチェックを入れて \textbf{OK}
 
-ファイルのインストールが始まり、Windowsを再起動する。
+ファイルのインストールが始まる。終了したら、Windowsを再起動する。
 
 MAMPなどで、Apacheを起動しておく。
 
@@ -20,52 +20,55 @@ MAMPなどで、Apacheを起動しておく。
 メモ帳などを起動して、以下の文字を入力してコピーしておく。
 
 \begin{tcolorbox}
-GET / HTTP/1.1
+GET / HTTP/1.1 \\
 Host: localhost
 \end{tcolorbox}
 
 コマンドプロンプトを起動する。
 
-\verb!> telnet localhost 80 <リターン>!
+\begin{tcolorbox}
+\verb! > telnet localhost 80 <リターン> !
+\end{tcolorbox}
 
 何も表示されなくなる。
 
-「\verv!Ctrl - ]!」とする。
+\fbox{Ctrl - ]} とする。
 
 \begin{tcolorbox}
-Microsoft Telnet クライアントへようこそ
-エスケープ文字は 'CTRL+]' です
-Microsoft Telnet> 
+Microsoft Telnet クライアントへようこそ \\
+エスケープ文字は 'CTRL+]' です \\
+Microsoft Telnet\textgreater
 \end{tcolorbox}
 
 と表示される。
 
-\fbox{Microsoft telnet> set localecho <リターン>}
+\fbox{Microsoft telnet\textgreater  set localecho \textless リターン\textgreater}
 
 とする。
 
 \begin{tcolorbox}
-ローカル エコー: オン
+ローカル エコー: オン \\
 Microsoft Telnet>
 \end{tcolorbox}
 
 と表示されるので、
 
-\fbox{<リターン>}
+\fbox{\textless リターン\textgreater}
 
 とする。また、何も表示されなくなる。
 
 左上の黒いアイコンを左クリック ー 編集 ー 貼り付け
 
 \begin{tcolorbox}
-GET / HTTP/1.1
-Host: loalhost
-(空行) <リターン>
+GET / HTTP/1.1 \\
+Host: loalhost \\
+(空行) \textless リターン\textgreater
 \end{tcolorbox}
 
 とすると、
 
-\begin{tcolorbox}
+ \begin{tcolorbox}
+  \begin{verbatim}
 HTTP/1.1 200 OK
 Date: Thu, 23 Jul 2020 11:15:45 GMT
 Connection: close
@@ -82,7 +85,8 @@ Content-Length: 147
 <h1>Sample Page</h1>
 </body>
 </html>
-\end{tcolorbox}
+\end{verbatim}
+ \end{tcolorbox}
 
 というような文字列が表示される。
 
@@ -93,21 +97,27 @@ Content-Length: 147
 
 \subsubsection{フォルダの作成}
 
-eclipse ワークディレクトリが C:\pleiades\workspace\sukkiri なので、
-それとは別にする。
+Webアプリの場所は \textbf{webapp} フォルダだけでなく、任意のフォルダを作成して、それを
+Tomcat に登録することもできる。
 
-C:\Users\user\Documents\sukkiri というフォルダを作成。
-その中に example というプロジェクト（フォルダ）を作成する。
+eclipse ワークディレクトリが \verb!C:\pleiades\workspace\sukkiri! なので、
+それとは別の場所に作成することにする。
+
+\verb!C:\Users\user\Documents\sukkiri! というフォルダを作成。
+その中に \textbf{example} というプロジェクト（フォルダ）を作成する。
 
 \subsubsection{Tomcat への登録}
 
-C:\pleiades\tomcat\9 の中に Catalina というフォルダを作成し、その中に localhost というフォルダを作成する。
+\verb!C:\pleiades\tomcat\9! の中に \textbf{Catalina} というフォルダを作成し、
+その中に \textbf{localhost} というフォルダを作成する。
 
-C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイルを作成し、以下の内容とする。
+\verb!C:\pleiades\tomcat\9\conf\Catalina\localhost\! に \textbf{example.xml} というファイルを作成し、以下の内容とする。
 
 \begin{tcolorbox}
+\begin{verbatim}
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example" docBase="C:/Users/user/Documents/sukkiri/example" />
+\end{verbatim}
 \end{tcolorbox}
 
 \subsection{開発環境を体験する}
@@ -116,13 +126,29 @@ C:\pleiades\tomcat\9\conf\Catalina\localhost\ に example.xml というファイ
 
 exampleフォルダのツリー構造は以下である。
 
-
+\begin{tcolorbox}
+\begin{verbatim}
 ./example
   ├── WEB-INF
   │   ├── classes
   │   └── lib
   ├── src
   └── index.html
+\end{verbatim}
+\end{tcolorbox}
+
+WEB-INFフォルダに配置したファイルは、ブラウザのURL欄に指定しても見ることはできない。
+サーブレットやJSPから呼び出せるだけである。
+サーブレットはこのフォルダのclassesフォルダの中に置く。
+
+それに対して、プロジェクトフォルダ直下においたファイル(この例ではindex.html)は、
+ブラウザのURL欄に指定して見ることができる。JSPファイルもここに置くことができる。
+JSPファイルでも、ブラウザのURL欄で指定して見ることができないようにするために、
+WEB-INFフォルダの中に置くことができる。その場合、\textbf{jsp}というフォルダを
+作成してその中に置くことが多い。
+
+\textbf{src} フォルダには、サーブレットやクラスファイルのソースコードを置く。
+コンパイルした classファイルを WEB-INF/classes フォルダの中に置く。
 
 \subsubsection{index.html の作成}
 
@@ -145,8 +171,10 @@ exampleフォルダのツリー構造は以下である。
 
 
 
-5) ブラウザで確認
+\subsubsection{ブラウザで確認}
 
 Tomcat を再起動後、http://localhost:8080/example/ にアクセスすることでブラウザに表示できる。
 
 \include{end}
+
+%% 修正時刻: Fri Jul 24 09:36:20 2020
