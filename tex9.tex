@@ -1,0 +1,64 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{セッションスコープ}
+
+\textsf{example} フォルダが増えてきたので、そろそろ別のフォルダを作成して、そこで作業する。
+
+\textsf{example8} というフォルダを作成する。以下のような構成になる。
+
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example8
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+│       ├── registerConfirm.jsp
+│       ├── registerDone.jsp
+│       └── registerForm.jsp
+├── build.xml
+├── index.html
+└── src
+    ├── model
+    │   ├── RegisterUserLogic.java
+    │   └── User.java
+    └── servlet
+        └── RegisterUser.java
+\end{verbatim}
+\end{tcolorbox}
+
+javaファイル、jspファイルはこれから作成する。
+
+build.xmlは次のようになる。
+
+\begin{tcolorbox}[title=build.xml]
+\begin{verbatim}
+<?xml version=''1.0'' ?>
+<project name=''example8'' default=''compile'' basedir=''.''>
+  <target name=''compile''>
+      <javac includeAntRuntime=''false''
+             encoding=''UTF-8''
+             srcdir=''./src''
+             destdir=''./WEB-INF/classes''
+             />
+  </target>
+</project>
+\end{verbatim}
+\end{tcolorbox}
+
+\verb!C:\pleiades\tomcat\9\conf\Catalina\localhost\example8.xml! を作成して、以下の内容とする。
+
+\begin{tcolorbox}[title=example8.xml]
+\begin{verbatim}
+<?xml version='1.0' encoding='utf-8'?>
+<Context path=''/example8'' docBase=''C:\Users\user\Documents\example8'' />
+\end{verbatim}
+\end{tcolorbox}
+
+
+
+\include{end}
+
+%% 修正時刻： Fri Jul 31 16:43:19 2020
