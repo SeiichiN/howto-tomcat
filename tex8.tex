@@ -1,0 +1,56 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{リクエストスコープ}
+
+\subsection{p192のプログラムコードの入力}
+
+\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost/example.xml} を使う。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+├── index.html
+├── build.xml
+├── sample.jsp
+├── formSample.jsp
+└── src
+    └── model
+        └── Human.java
+\end{verbatim}
+\end{tcolorbox}
+\footnote{servlet フォルダには他にも javaファイルがあるが、ここでは今回入力するファイルのみ表示した。}
+
+
+\subsection{p203からのプログラムコードの入力}
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+│        ├── healthCheck.jsp
+│        └── healthCheckResult.jsp
+├── index.html
+├── build.xml
+└── src
+     ├── model
+     │   ├── Health.java
+     │   └── HealthCheckLogic.java
+     └── servlet
+         └── HealthCheck.java
+\end{verbatim}
+\end{tcolorbox}
+
+
+
+
+
+\include{end}
+
+%% 修正時刻： Sat May  2 16:26:44 2020

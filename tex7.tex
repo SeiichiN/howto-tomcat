@@ -1,0 +1,82 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{MVCモデルと処理の遷移}
+
+\subsection{フォワード}
+
+\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost} にある \textsf{example.xml} をそのまま使うことにする。
+
+\textsf{sukkiri} の中の \textsf{example} フォルダに入る。
+
+最初に p174 の \textsf{ForwardSampleServlet.java} を入力する。
+
+\textsf{servlet}パッケージなので、\textsf{src/servlet}フォルダの中で \textsf{ForwardSampleServlet.java} を作成する。
+
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+│       └── ForwardSample.jsp
+├── index.html
+├── build.xml
+├── sample.jsp
+├── formSample.jsp
+└── src
+    └── servlet
+        └── ForwardSampleServlet.java
+\end{verbatim}
+\end{tcolorbox}
+\footnote{servlet フォルダには他にも javaファイルがあるが、ここでは今回入力するファイルのみ表示した。}
+
+入力が終了したら、\textsf{example} のトップで、
+
+\begin{tcolorbox}
+\begin{verbatim}
+> ant <リターン>
+\end{verbatim}
+\end{tcolorbox}
+
+とすれば自動的に \textsf{WEB-INF/classes} フォルダにコンパイル済みのファイルが保存される。
+
+無事コンパイルがすめば、Tomcat を再起動する。
+
+ブラウザにて \textsf{http://localhost:8080/example/ForwardSampleServlet} アクセスすると、jspファイルが表示される。
+
+
+\subsection{リダイレクト}
+
+今回も、同じ \textsf{example.xml} で作業する。（同じURL）
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+├── index.html
+├── build.xml
+├── sample.jsp
+├── formSample.jsp
+└── src
+    └── servlet
+        └── RedirectSampleServlet.java
+\end{verbatim}
+\end{tcolorbox}
+\footnote{今回入力するファイルのみ表示}
+
+\textsf{ant} でのコンパイルは前回と同じ。
+
+
+
+
+
+
+
+\include{end}
+
+%% 修正時刻： Sat May  2 16:26:44 2020
