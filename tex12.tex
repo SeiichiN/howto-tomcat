@@ -1,0 +1,80 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{応用的な知識を深めよう}
+
+p317以下のプログラムを入力する。
+
+本では、\textsf{example}フォルダをそのまま使っているが、ここでは別に
+\textsf{example11}フォルダを作成して、そこでプログラムを作成することとする。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./example11
+├── WEB-INF/
+├── build.xml
+└── src/
+    ├── model/
+    └── servlet/
+\end{verbatim} 
+\end{tcolorbox}
+
+build.xml は、今までのものをコピーしてここに置く。
+
+このフォルダをTomcatに登録する。
+
+\verb! C:\pleiades\tomcat\9\conf\Catalina\localhost ! に
+\textsf{ example11.xml } を作成し、以下の内容とする。
+
+\begin{lstlisting}[caption=docoTsubu.xml]
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example11" docBase="C:\Users\user\Documents\sukkiri\example11" />
+\end{lstlisting}
+
+これは、\verb! C:\Users\user\Documents\sukkiri ! に ``example11''フォルダがある場合である。
+
+\textsf{index.html}も用意しておく。
+
+\begin{lstlisting}[caption=index.html]
+ <!doctype html>
+ <html lang="ja">
+ <head>
+   <meta charset="utf-8">
+   <title>example11</title>
+ </head>
+ <body>
+   <h1>example11</h1>
+ </body>
+ </html>
+\end{lstlisting}
+
+p317のリストを入力する。
+
+\textsf{src/servlet}フォルダに作成する。
+
+p319に書かれている \textsf{System.out.println()}の出力結果は、Tomcat起動ショートカットを
+ダブルクリックして現れたコマンドプロンプトの画面に出力される。
+または、\verb! C:\pleiades\tomcat\9\log\catalina.out ! に出力される。
+
+同様に p327 のリストを入力する。
+
+\textsf{src/listener}フォルダを作成してその中に作成する。
+
+p333、p335 のリストも \textsf{src/filter}フォルダを作成してその中に作成する。
+
+コンパイルは \fbox{\textgreater \hspace{2mm}ant} でできる。
+
+
+
+
+
+
+
+
+
+
+\include{end}
+
+%% 修正時刻: Sun Aug  2 14:20:31 2020
+

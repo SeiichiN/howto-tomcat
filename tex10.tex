@@ -1,0 +1,60 @@
+\documentclass[dvipdfmx]{jsarticle}
+
+\include{begin}
+
+\section{アプリケーションスコープ}
+
+\textsf{sample9}というフォルダにまとめて作成する。
+
+\verb!C:\pleiades\tomcat\9\conf\Catalina\localhost\example9.xml! を作成し、以下の内容とする。
+
+\begin{lstlisting}[caption=example9.xml]
+<?xml version="1.0" encoding="utf-8" ?>
+<Context path="/example9" docBase="C:\Users\user\Documents\sukkiri\example9" />
+\end{lstlisting}
+
+``\textsf{sukkiri}''フォルダに ``\textsf{example9}''フォルダを作成し、その
+構成は、以下である。
+
+\begin{tcolorbox}
+\begin{verbatim}
+./
+├── WEB-INF
+│   ├── classes
+│   └── jsp
+│       └── minatoIndex.jsp
+├── build.xml
+├── index.html
+└── src
+    ├── model
+    │   ├── SiteEV.java
+    │   └── siteEVLogic.java
+    └── servlet
+        └── MinatoIndex.java
+\end{verbatim} 
+\end{tcolorbox}
+
+build.xmlは以下のとおり。
+
+\begin{lstlisting}[caption=build.xml]
+<?xml version="1.0" ?>
+<project name="example9" default="compile" basedir=".">
+  <target name="compile">
+      <javac includeAntRuntime="false"
+             encoding="UTF-8"
+             srcdir="./src"
+             destdir="./WEB-INF/classes"
+             />
+  </target>
+</project>
+\end{lstlisting}
+
+p254の''siteEV.java''、p255の''SiteDVLogic.java''、p256の''MinatoIndex.java''、
+p257の''minatoIndex.jsp''を入力する。
+
+
+
+
+\include{end}
+
+%% 修正時刻： Sat Aug  1 19:29:32 2020

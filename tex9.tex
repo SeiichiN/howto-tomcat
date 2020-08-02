@@ -33,32 +33,28 @@ javaファイル、jspファイルはこれから作成する。
 
 build.xmlは次のようになる。
 
-\begin{tcolorbox}[title=build.xml]
-\begin{verbatim}
-<?xml version=''1.0'' ?>
-<project name=''example8'' default=''compile'' basedir=''.''>
-  <target name=''compile''>
-      <javac includeAntRuntime=''false''
-             encoding=''UTF-8''
-             srcdir=''./src''
-             destdir=''./WEB-INF/classes''
+\begin{lstlisting}[caption=build.xml]
+<?xml version="1.0" ?>
+<project name="example8" default="compile" basedir=".">
+  <target name="compile">
+      <javac includeAntRuntime="false"
+             encoding="UTF-8"
+             srcdir="./src"
+             destdir="./WEB-INF/classes"
              />
   </target>
 </project>
-\end{verbatim}
-\end{tcolorbox}
+\end{lstlisting}
 
 \verb!C:\pleiades\tomcat\9\conf\Catalina\localhost\example8.xml! を作成して、以下の内容とする。
 
-\begin{tcolorbox}[title=example8.xml]
-\begin{verbatim}
-<?xml version='1.0' encoding='utf-8'?>
-<Context path=''/example8'' docBase=''C:\Users\user\Documents\example8'' />
-\end{verbatim}
-\end{tcolorbox}
+\begin{lstlisting}[caption=example8.xml]
+<?xml version="1.0" encoding="utf-8" ?>
+<Context path="/example8" docBase="C:\Users\user\Documents\example8" />
+\end{lstlisting}
 
 
 
 \include{end}
 
-%% 修正時刻： Fri Jul 31 16:43:19 2020
+%% 修正時刻： Fri Jul 31 18:38:18 2020
