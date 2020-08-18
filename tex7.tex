@@ -6,9 +6,18 @@
 
 \subsection{フォワード}
 
-\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost} にある \textsf{example.xml} をそのまま使うことにする。
+\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost} にある \textsf{example.xml} を
+コピーして \textsf{example6.xml}を作成する。\\
+内容は以下のようにする。
 
-\textsf{sukkiri} の中の \textsf{example} フォルダに入る。
+\begin{tcolorbox}
+\begin{verbatim}
+<?xml version='1.0' encoding='utf-8'?>
+<Context path="/example6" docBase="C:\Users\user\Documents\sukkiri\example6" />
+\end{verbatim}
+\end{tcolorbox}:
+
+\textsf{sukkiri} の中の \textsf{example6} フォルダに入る。
 
 最初に p174 の \textsf{ForwardSampleServlet.java} を入力する。
 
@@ -24,14 +33,14 @@
 │       └── ForwardSample.jsp
 ├── index.html
 ├── build.xml
-├── sample.jsp
-├── formSample.jsp
 └── src
     └── servlet
+        ├── RedierctSampleServlet.java
         └── ForwardSampleServlet.java
 \end{verbatim}
 \end{tcolorbox}
-\footnote{servlet フォルダには他にも javaファイルがあるが、ここでは今回入力するファイルのみ表示した。}
+
+\textsf{index.html}には \verb!<a href="/example6/ForwardSampleServlet">フォワードサンプルサーブレット</a>! というリンクを作っておく。
 
 入力が終了したら、\textsf{example} のトップで、
 
