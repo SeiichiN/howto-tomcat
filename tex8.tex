@@ -6,21 +6,21 @@
 
 \subsection{p192のプログラムコードの入力}
 
-\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost/example.xml} を使う。
+\textsf{C:/pleiades/tomcat/9/conf/Catalina/localhost/example7.xml} を作る。前回と同じようにする。
 \footnote{servlet フォルダには他にも javaファイルがあるが、ここでは今回入力するファイルのみ表示した。}
 
 \begin{tcolorbox}
 \begin{verbatim}
 ./example
-├── WEB-INF
-│   ├── classes
-│   └── jsp
+├── WEB-INF/
+│   ├── classes/
+│   └── jsp/
 ├── index.html
 ├── build.xml
 ├── sample.jsp
 ├── formSample.jsp
-└── src
-    └── model
+└── src/
+    └── model/
         └── Human.java
 \end{verbatim}
 \end{tcolorbox}
@@ -31,18 +31,18 @@
 \begin{tcolorbox}
 \begin{verbatim}
 ./example
-├── WEB-INF
-│   ├── classes
-│   └── jsp
+├── WEB-INF/
+│   ├── classes/
+│   └── jsp/
 │        ├── healthCheck.jsp
 │        └── healthCheckResult.jsp
 ├── index.html
 ├── build.xml
-└── src
-     ├── model
+└── src/
+     ├── model/
      │   ├── Health.java
      │   └── HealthCheckLogic.java
-     └── servlet
+     └── servlet/
          └── HealthCheck.java
 \end{verbatim}
 \end{tcolorbox}

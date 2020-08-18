@@ -15,7 +15,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context path="/example6" docBase="C:\Users\user\Documents\sukkiri\example6" />
 \end{verbatim}
-\end{tcolorbox}:
+\end{tcolorbox}
 
 \textsf{sukkiri} の中の \textsf{example6} フォルダに入る。
 
@@ -27,20 +27,27 @@
 \begin{tcolorbox}
 \begin{verbatim}
 ./example
-├── WEB-INF
-│   ├── classes
-│   └── jsp
+├── WEB-INF/
+│   ├── classes/
+│   └── jsp/
 │       └── ForwardSample.jsp
 ├── index.html
 ├── build.xml
-└── src
-    └── servlet
+└── src/
+    └── servlet/
         ├── RedierctSampleServlet.java
         └── ForwardSampleServlet.java
 \end{verbatim}
 \end{tcolorbox}
 
-\textsf{index.html}には \verb!<a href="/example6/ForwardSampleServlet">フォワードサンプルサーブレット</a>! というリンクを作っておく。
+\textsf{index.html}には
+
+ \begin{tabular}{|l|}
+  \hline
+\verb!<a href="/example6/ForwardSampleServlet">フォワードサンプルサーブレット</a>! \\ \hline
+ \end{tabular}
+
+というリンクを作っておく。
 
 入力が終了したら、\textsf{example} のトップで、
 
@@ -59,20 +66,20 @@
 
 \subsection{リダイレクト}
 
-今回も、同じ \textsf{example.xml} で作業する。（同じURL）
+今回も、同じ \textsf{example6.xml} で作業する。（同じURL）
 
 \begin{tcolorbox}
 \begin{verbatim}
 ./example
-├── WEB-INF
-│   ├── classes
-│   └── jsp
+├── WEB-INF/
+│   ├── classes/
+│   └── jsp/
 ├── index.html
 ├── build.xml
 ├── sample.jsp
 ├── formSample.jsp
-└── src
-    └── servlet
+└── src/
+    └── servlet/
         └── RedirectSampleServlet.java
 \end{verbatim}
 \end{tcolorbox}
@@ -88,4 +95,5 @@
 
 \include{end}
 
-%% 修正時刻： Sat May  2 16:26:44 2020
+%% 修正時刻： Tue Aug 18 18:16:49 2020
+
