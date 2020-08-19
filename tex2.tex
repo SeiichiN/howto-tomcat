@@ -15,7 +15,7 @@ Windowsの機能のダイアログボックスで
 
 ファイルのインストールが始まる。終了したら、Windowsを再起動する。
 
-MAMPなどで、Apacheを起動しておく。
+XAMPPやMAMPなどで、Apacheを起動しておく。
 
 あるいは、任意のフォルダで、「php -S localhost:80」とすると、そのポートで簡易Webサーバが起動する。
 
@@ -48,13 +48,17 @@ Microsoft Telnet\textgreater
 
 と表示される。
 
-\fbox{Microsoft telnet\textgreater  set localecho \textless リターン\textgreater}
+ \begin{tabular}{|c|}
+  \hline
+Microsoft telnet\verb! >  set localecho <リターン>! \\ \hline
+ \end{tabular}
+
 
 とする。
 
 \begin{tcolorbox}
 ローカル エコー: オン \\
-Microsoft Telnet>
+Microsoft Telnet \verb!>!
 \end{tcolorbox}
 
 と表示されるので、
@@ -183,4 +187,5 @@ Tomcat を再起動後、http://localhost:8080/example/ にアクセスするこ
 
 \include{end}
 
-%% 修正時刻: Fri Jul 24 09:36:20 2020
+%% 修正時刻: Wed Aug 19 20:21:24 2020
+

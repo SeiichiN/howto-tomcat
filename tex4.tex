@@ -72,7 +72,7 @@ zipファイルである \textbf{apache-ant-1.10.8-bin.zip} をクリックす�
 以下の内容にする。
 
 \begin{lstlisting}[caption=build.xml]
- <?xml version="1.0" ?>
+<?xml version="1.0" ?>
 <project name="example" default="compile" basedir=".">
   <target name="compile">
     <javac encoding="UTF-8"
@@ -82,18 +82,18 @@ zipファイルである \textbf{apache-ant-1.10.8-bin.zip} をクリックす�
 </project>
 \end{lstlisting}
 
-warning: 'includeantruntime' was not set, .... という Warning が出力されるが、\textbf{BUILD SUCCESSFULL} というメッセージが出るはずである。
+\verb!warning: 'includeantruntime' was not set, ....! という Warning が出力されるが、\textbf{BUILD SUCCESSFULL} というメッセージが出るはずである。
 
 この warning の出力がわずらわしいので、出ないようにする。
 
 build.xml の内容に以下のように追加する。
 
 \begin{lstlisting}[caption=build.xml]
- <?xml version="1.0" ?>
+<?xml version="1.0" ?>
 <project name="example" default="compile" basedir=".">
   <target name="compile">
     <javac encoding="UTF-8"
-           includeAntRuntime="false"
+           includeAntRuntime="false"               <!--  これを追加  -->
            srcdir="./src"
            destdir="./WEB-INF/classes" />
   </target>
@@ -108,7 +108,7 @@ falseにしてもかまわないのだが、ただ、システム環境変数の
 そのための設定を追加する。
 
 \begin{lstlisting}[caption=build.xml]
- <?xml version="1.0" ?>
+<?xml version="1.0" ?>
 <project name="example" default="compile" basedir=".">
   <target name="compile">
     <javac encoding="UTF-8"

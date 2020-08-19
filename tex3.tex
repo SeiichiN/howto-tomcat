@@ -41,14 +41,14 @@
 
 \begin{lstlisting}
  <!doctype html>
- <html lang=''ja''>
+ <html lang="ja">
  <head>
- <meta charset=''utf-8''>
+ <meta charset="utf-8">
  <title>SERVLET</title>
  </head>
  <body>
  <h1>sukkiri-chap3</h1>
- <p><a href=''#''>SampleServlet</a></p>
+ <p><a href="#">SampleServlet</a></p>
  </body>
  </html>
 \end{lstlisting}
@@ -114,7 +114,11 @@ public class SampleServlet extends HttpServlet {
 
 次に、コンパイルを行う。srcフォルダにいるとする。
 
-\fbox{\textgreater  javac  -d  ../WEB-INF/classes  servlet/*.java}
+ \begin{tabular}{|c|}
+  \hline
+\verb!> javac  -d  ../WEB-INF/classes  servlet/*.java! \\ \hline
+ \end{tabular}
+
 
 \verb!-d! オプションは コンパイルしたあとにできる classファイルをどこに置くかという指定である。
 Tomcatの場合、WEB-INF/classes に置くことに決まっている。
@@ -127,7 +131,11 @@ UTF-8の文字コードで作成したファイルを Windowsのコマンドプ�
 コンパイルできない。\\
 以下のように \verb!-encoding UTF-8! とオプションをつけてコンパイルする。
 
-\fbox{\textgreater  javac  -encoding  UTF-8  -d  ../WEB-INF/classes  servlet/*.java}
+ \begin{tabular}{|c|}
+  \hline
+  \verb!> javac  -encoding  UTF-8  -d  ../WEB-INF/classes  servlet/*.java! \\ \hline
+ \end{tabular}
+
 
 
 サーブレットはコンパイルするごとに Tomcat を再起動しなければならない。
@@ -140,9 +148,10 @@ URLは、\verb!http://localhost:8080/example/SampleServlet! である。
 
 index.html を開いて、以下の箇所にURL文字列を入れる。
 
-\begin{tcolorbox}
-\verb! <p><a href=''/example/SampleServlet''>SampleServlet</a></p> !
-\end{tcolorbox}
+\begin{tabular}{|c|}
+\hline
+ \verb! <p><a href="/example/SampleServlet">SampleServlet</a></p> ! \\ \hline
+\end{tabular}
 
 ブラウザに \verb! http://localhost:8080/example/ ! とすると、index.html が表示されるので、
 リンク先をクリックしてうまく表示されると成功である。
@@ -214,4 +223,5 @@ Tomcatサーバーを再起動する。
 
 \include{end}
 
-%% 修正時刻： Fri Jul 24 13:21:18 2020
+%% 修正時刻: Wed Aug 19 20:43:09 2020
+
